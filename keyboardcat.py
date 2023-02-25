@@ -94,6 +94,22 @@ def parse_number():
         sys.exit(1)
     return int(num)
 
+def get_return():
+    global ip
+    for block in blocks:
+        if block[2] == ip:
+            return block[1]
+    print(f"No return for {ip}")
+    sys.exit(1)
+
+def get_skip():
+    global ip
+    for block in blocks:
+        if block[1] == ip:
+            return block[2]
+    print(f"No skip for {ip}")
+    sys.exit(1)
+
 while True:
     if ip >= len(program):
         break
@@ -131,6 +147,17 @@ while True:
             print("Error nothing to pop")
             sys.exit(1)
         cells[cp] = stack.pop(-1)
+    elif c=='(':
+        if not cells[cp]:
+            ip = get_skip()
+    elif c==')':
+        if cells[cp]:
+            ip = get_return()
+    elif c=='[':
+        if not cells[cp]:
+            ip = get_skip()
+    elif c==']':
+        pass
     else:
         print(f"Invalid instruction '{c}' at {ip}")
         sys.exit(1)
