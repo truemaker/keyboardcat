@@ -208,6 +208,22 @@ while True:
         else:
             ip -= 1
             stack.append(get_input())
+    elif c=='<':
+        c = next_char()
+        if c != '#':
+            print(f"Invalid command {ip}")
+            sys.exit(1)
+        cp-=1
+        if cp < 0: cp = len(cells)-cp
+        if cp >= len(cells): cp = cp-len(cells)
+    elif c=='>':
+        c = next_char()
+        if c != '#':
+            print(f"Invalid command {ip}")
+            sys.exit(1)
+        cp-=1
+        if cp < 0: cp = len(cells)-cp
+        if cp >= len(cells): cp = cp-len(cells)
     else:
         print(f"Invalid instruction '{c}' at {ip}")
         sys.exit(1)

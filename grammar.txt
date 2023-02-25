@@ -24,3 +24,6 @@ ARITMETIC    : {<operator>}
 
 INPUT        : .#
 INPUT_STACK  : .
+
+MOVE_LEFT    : <#
+MOVE_RIGHT   : >#
