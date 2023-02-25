@@ -22,6 +22,7 @@ program = []
 blocks = []
 ip = 0
 cp = 0
+inp_buffer = []
 NUMBERS = "1234567890"
 
 for l in code.split("\n"):
@@ -118,6 +119,14 @@ def arithmetic(func):
     a = stack.pop(-1)
     stack.append(func(a,b))
 
+def get_input():
+    global inp_buffer
+    if len(inp_buffer) > 0:
+        return ord(inp_buffer.pop(0))
+    user_inp = input()
+    inp_buffer.extend(user_inp)
+    return get_input()
+
 while True:
     if ip >= len(program):
         break
@@ -192,6 +201,13 @@ while True:
         c = next_char()
         if c != '}':
             print("Expected '}' at " + ip)
+    elif c=='.':
+        c = next_char()
+        if c=='#':
+            cells[cp] = get_input()
+        else:
+            ip -= 1
+            stack.append(get_input())
     else:
         print(f"Invalid instruction '{c}' at {ip}")
         sys.exit(1)
