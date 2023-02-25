@@ -1,0 +1,26 @@
+PRINT_NUMBER : $#
+PRINT_CHAR   : $#c
+PRINT_STRING : $"<string goes here>"
+
+LOAD_NUMBER  : #<number>
+PUSH_NUMBER  : Pn<number>
+PUSH_CELL    : P#
+POP          : p
+
+WHILE_START  : (
+WHILE_END    : )
+IF_START     : [
+IF_END       : ]
+
+WHILE        : WHILE_START<body goes here>WHILE_END
+IF           : IF_START<body goes here>IF_END
+
+# Arithmetic is always done using the top 2 values on the stack
+# the first goes in second place and the second goes into the first place
+
+ARITMETIC    : {<operator>}
+
+# Valid operators are +,-,*,/,% and =
+
+INPUT        : .#
+INPUT_STACK  : .
