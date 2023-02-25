@@ -110,6 +110,14 @@ def get_skip():
     print(f"No skip for {ip}")
     sys.exit(1)
 
+def arithmetic(func):
+    if len(stack) < 2:
+        print(f"Not enough values for arithmetic at {ip}")
+        sys.exit(1)
+    b = stack.pop(-1)
+    a = stack.pop(-1)
+    stack.append(func(a,b))
+
 while True:
     if ip >= len(program):
         break
@@ -158,6 +166,32 @@ while True:
             ip = get_skip()
     elif c==']':
         pass
+    elif c=='{':
+        c = next_char()
+        if c == '+':
+            add = lambda a, b : a+b
+            arithmetic(add)
+        elif c == '-':
+            sub = lambda a, b : a-b
+            arithmetic(sub)
+        elif c == '*':
+            mul = lambda a, b : a*b
+            arithmetic(mul)
+        elif c == '/':
+            div = lambda a, b : a/b
+            arithmetic(div)
+        elif c == '%':
+            mod = lambda a, b : a%b
+            arithmetic(mod)
+        elif c == '=':
+            eq = lambda a, b : a==b
+            arithmetic(eq)
+        else:
+            print(f"Invalid arithmetic '{c}' at {ip}")
+            sys.exit(1)
+        c = next_char()
+        if c != '}':
+            print("Expected '}' at " + ip)
     else:
         print(f"Invalid instruction '{c}' at {ip}")
         sys.exit(1)
