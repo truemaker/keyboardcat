@@ -5,3 +5,7 @@ An esoteric programming language designed to look like a cat walked over the key
 ```
 $"Hello, World"
 ```
+#### Truth machine
+```
+.Pn48{-}p($#)$#
+```
