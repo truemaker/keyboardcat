@@ -17,13 +17,14 @@ IF           : IF_START<body goes here>IF_END
 
 # Arithmetic is always done using the top 2 values on the stack
 # the first goes in second place and the second goes into the first place
+# Valid operators are +,-,*,/,% and =
 
 ARITMETIC    : {<operator>}
-
-# Valid operators are +,-,*,/,% and =
 
 INPUT        : .#
 INPUT_STACK  : .
 
 MOVE_LEFT    : <#
 MOVE_RIGHT   : >#
+
+COMMENT      : |

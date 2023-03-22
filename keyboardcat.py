@@ -31,9 +31,10 @@ for l in code.split("\n"):
 
 
 in_string = False
+in_comment = False
 
 for i,c in enumerate(program):
-    if not in_string:
+    if (not in_string) and (not in_comment):
         if c=='[':
             stack.append(('[]',i))
         if c==']':
@@ -64,10 +65,17 @@ for i,c in enumerate(program):
         if c=='"':
             stack.append(('"',i))
             in_string = True
-    else:
+        if c=='|':
+            stack.append(("||",i))
+            in_comment = True
+    elif in_string:
         if c=='"':
             stack.pop(-1)
             in_string = False
+    elif in_comment:
+        if c=='|':
+            blocks.append(('||',stack.pop(-1)[1],i))
+            in_comment = False
 
 if len(stack) > 0:
     while len(stack) > 0:
@@ -125,6 +133,7 @@ def get_input():
         return ord(inp_buffer.pop(0))
     user_inp = input()
     inp_buffer.extend(user_inp)
+    inp_buffer.append("\n")
     return get_input()
 
 while True:
@@ -138,14 +147,13 @@ while True:
             while c != '"':
                 print(c,end="")
                 c = next_char()
-            print()
         elif c == '#':
             c = next_char()
             if c == 'c':
-                print(chr(cells[cp]))
+                print(chr(cells[cp]), end="")
             else:
                 ip -= 1
-                print(cells[cp])
+                print(cells[cp], end="")
         else:
             print(f"Invalid instruction '{c}' at {ip}")
             sys.exit(1)
@@ -224,6 +232,8 @@ while True:
         cp-=1
         if cp < 0: cp = len(cells)-cp
         if cp >= len(cells): cp = cp-len(cells)
+    elif c=='|':
+        ip = get_skip()
     else:
         print(f"Invalid instruction '{c}' at {ip}")
         sys.exit(1)
