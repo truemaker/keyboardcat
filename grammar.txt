@@ -27,4 +27,4 @@ INPUT_STACK  : .
 MOVE_LEFT    : <#
 MOVE_RIGHT   : >#
 
-COMMENT      : |
+COMMENT      : |<comment>|
